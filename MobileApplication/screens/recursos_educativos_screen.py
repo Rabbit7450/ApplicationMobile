@@ -134,17 +134,72 @@ class RecursosEducativosScreen(Screen):
         self.add_widget(main_layout)
 
     def mostrar_detalles(self, descripcion):
-        popup = Popup(
-            title='Detalles del Recurso',
-            content=TextInput(
-                text=descripcion,
-                readonly=True,
-                multiline=True,
-                background_color=(1, 1, 1, 1),
-                foreground_color=(0, 0, 0, 1)
-            ),
-            size_hint=(0.8, 0.8)
+        # Crear un layout para el popup
+        popup_layout = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
+        # Título del popup
+        popup_title = Label(
+            text='Detalles del Recurso',
+            **TEXT_STYLES['title'],
+            size_hint_y=None,
+            height=dp(60)
         )
+        popup_layout.add_widget(popup_title)
+        # Separador
+        separator = BoxLayout(size_hint_y=None, height=dp(2))
+        with separator.canvas.before:
+            Color(*COLORS['primary'])
+            Rectangle(pos=separator.pos, size=separator.size)
+        popup_layout.add_widget(separator)
+        # Contenido en un ScrollView
+        content_scroll = ScrollView(size_hint=(1, 1))
+        content_layout = BoxLayout(orientation='vertical', size_hint_y=None, padding=dp(10), spacing=dp(10))
+        content_layout.bind(minimum_height=content_layout.setter('height'))
+        # Dividir el contenido en párrafos
+        parrafos = descripcion.split('\n\n')
+        for parrafo in parrafos:
+            if parrafo.strip():
+                parrafo_card = BoxLayout(orientation='vertical', size_hint_y=None, padding=dp(10))
+                parrafo_label = Label(
+                    text=parrafo,
+                    size_hint_y=None,
+                    halign='left',
+                    valign='top',
+                    color=(0, 0, 0, 1),
+                    font_size=dp(16),
+                    text_size=(dp(300), None)
+                )
+                parrafo_label.bind(texture_size=lambda instance, value: setattr(parrafo_label, 'height', value[1]))
+                parrafo_card.add_widget(parrafo_label)
+                with parrafo_card.canvas.before:
+                    Color(0.95, 0.95, 0.95, 1)
+                    RoundedRectangle(pos=parrafo_card.pos, size=parrafo_card.size, radius=[dp(10)]*4)
+                content_layout.add_widget(parrafo_card)
+        content_scroll.add_widget(content_layout)
+        popup_layout.add_widget(content_scroll)
+        # Botón para cerrar
+        close_button = Button(
+            text='Cerrar',
+            size_hint_y=None,
+            height=dp(50),
+            background_normal='',
+            background_color=COLORS['error']
+        )
+        popup_layout.add_widget(close_button)
+        # Crear el popup
+        popup = Popup(
+            title='',
+            content=popup_layout,
+            size_hint=(0.9, 0.9),
+            background='',
+            background_color=(1, 1, 1, 0.95),
+            separator_height=0
+        )
+        with popup.canvas.before:
+            Color(0, 0, 0, 0.1)
+            RoundedRectangle(pos=(popup.x + dp(2), popup.y - dp(2)), size=(popup.width - dp(4), popup.height - dp(4)), radius=[dp(20)]*4)
+            Color(1, 1, 1, 1)
+            RoundedRectangle(pos=popup.pos, size=popup.size, radius=[dp(20)]*4)
+        close_button.bind(on_press=popup.dismiss)
         popup.open()
 
     def _update_rect(self, instance, value):
