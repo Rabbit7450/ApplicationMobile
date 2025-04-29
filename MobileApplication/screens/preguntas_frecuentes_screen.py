@@ -21,11 +21,10 @@ class PreguntasFrecuentesScreen(Screen):
         self.setup_ui()
 
     def setup_ui(self):
-        # Configurar el fondo con gradiente
+        # Fondo con imagen
         with self.canvas.before:
-            Color(*COLORS['background'])
-            self.rect = Rectangle(size=Window.size, pos=self.pos)
-            self.bind(size=self._update_rect, pos=self._update_rect)
+            self.bg_rect = Rectangle(source='assets/imagenes/fondo1.jpg', size=Window.size, pos=self.pos)
+            self.bind(size=self._update_bg_rect, pos=self._update_bg_rect)
 
         # Layout principal con ScrollView
         main_layout = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
@@ -159,7 +158,7 @@ class PreguntasFrecuentesScreen(Screen):
             size_hint_y=None,
             height=dp(50),
             background_normal='',
-            background_color=COLORS['error']
+            background_color=COLORS['primary']
         )
         back_button.bind(on_press=lambda x: self.switch_screen('padres'))
         grid.add_widget(back_button)
@@ -217,7 +216,7 @@ class PreguntasFrecuentesScreen(Screen):
             size_hint_y=None,
             height=dp(50),
             background_normal='',
-            background_color=COLORS['error']
+            background_color=COLORS['primary']
         )
         popup_layout.add_widget(close_button)
         # Crear el popup
@@ -237,9 +236,9 @@ class PreguntasFrecuentesScreen(Screen):
         close_button.bind(on_press=popup.dismiss)
         popup.open()
 
-    def _update_rect(self, instance, value):
-        self.rect.pos = instance.pos
-        self.rect.size = instance.size
+    def _update_bg_rect(self, instance, value):
+        self.bg_rect.size = instance.size
+        self.bg_rect.pos = instance.pos
 
     def switch_screen(self, screen_name):
         self.manager.current = screen_name 

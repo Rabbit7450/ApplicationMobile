@@ -1,49 +1,69 @@
 from kivy.utils import get_color_from_hex
 
-# Paleta de colores
+# Nueva paleta de colores basada en la imagen
 COLORS = {
-    'primary': get_color_from_hex('#2196F3'),  # Azul principal
-    'primary_dark': get_color_from_hex('#1976D2'),  # Azul oscuro
-    'accent': get_color_from_hex('#FF4081'),  # Rosa acento
-    'background': get_color_from_hex('#F5F5F5'),  # Fondo gris claro
-    'text_primary': get_color_from_hex('#212121'),  # Texto principal
-    'text_secondary': get_color_from_hex('#757575'),  # Texto secundario
-    'white': get_color_from_hex('#FFFFFF'),  # Blanco
-    'success': get_color_from_hex('#4CAF50'),  # Verde éxito
-    'warning': get_color_from_hex('#FFC107'),  # Amarillo advertencia
-    'error': get_color_from_hex('#F44336'),  # Rojo error
+    'primary': get_color_from_hex('#D8E3D1'),   # Verde muy claro
+    'accent': get_color_from_hex('#F3F2D8'),    # Crema claro
+    'secondary': get_color_from_hex('#B8AD97'), # Marrón claro
+    'highlight': get_color_from_hex('#E07A3F'), # Naranja
+    'background': get_color_from_hex('#F3F2D8'), # Fondo igual al crema claro
+    'text_primary': get_color_from_hex('#212121'),
+    'text_secondary': get_color_from_hex('#757575'),
+    'white': get_color_from_hex('#FFFFFF'),
+    'shadow': get_color_from_hex('#000000'),
 }
 
 # Estilos de texto
 TEXT_STYLES = {
     'title': {
-        'font_size': '24sp',
+        'font_size': '28sp',
         'color': COLORS['text_primary'],
         'bold': True
     },
     'subtitle': {
-        'font_size': '18sp',
+        'font_size': '20sp',
         'color': COLORS['text_secondary']
     },
     'button': {
-        'font_size': '16sp',
-        'color': COLORS['white']
+        'font_size': '18sp',
+        'color': COLORS['white'],
+        'bold': True
     }
 }
 
-# Estilos de botones
+# Estilos de botones usando la nueva paleta
 BUTTON_STYLES = {
     'primary': {
         'background_color': COLORS['primary'],
         'background_normal': '',
         'size_hint_y': None,
-        'height': '50dp'
+        'height': '60dp',
+        'font_size': '18sp',
+        'bold': True
     },
     'accent': {
         'background_color': COLORS['accent'],
         'background_normal': '',
         'size_hint_y': None,
-        'height': '50dp'
+        'height': '60dp',
+        'font_size': '18sp',
+        'bold': True
+    },
+    'secondary': {
+        'background_color': COLORS['secondary'],
+        'background_normal': '',
+        'size_hint_y': None,
+        'height': '60dp',
+        'font_size': '18sp',
+        'bold': True
+    },
+    'highlight': {
+        'background_color': COLORS['highlight'],
+        'background_normal': '',
+        'size_hint_y': None,
+        'height': '60dp',
+        'font_size': '18sp',
+        'bold': True
     }
 }
 
@@ -51,8 +71,8 @@ BUTTON_STYLES = {
 CARD_STYLES = {
     'default': {
         'size_hint_y': None,
-        'height': '100dp',
-        'padding': [15, 15, 15, 15],
-        'spacing': 10
+        'height': '120dp',
+        'padding': [20, 20, 20, 20],
+        'spacing': 15
     }
 } 

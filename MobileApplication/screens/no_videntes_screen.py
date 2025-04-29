@@ -18,11 +18,10 @@ class NoVidentesScreen(Screen):
         self.setup_ui()
 
     def setup_ui(self):
-        # Configurar el fondo con gradiente
+        # Fondo con imagen
         with self.canvas.before:
-            Color(*COLORS['background'])
-            self.rect = Rectangle(size=Window.size, pos=self.pos)
-            self.bind(size=self._update_rect, pos=self._update_rect)
+            self.bg_rect = Rectangle(source='assets/imagenes/fondo1.jpg', size=Window.size, pos=self.pos)
+            self.bind(size=self._update_bg_rect, pos=self._update_bg_rect)
 
         # Layout principal con ScrollView
         main_layout = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
@@ -54,10 +53,11 @@ class NoVidentesScreen(Screen):
         buttons = [
             ('Audiolibros', 'audiolibros', COLORS['primary']),
             ('Juegos Educativos', 'juegos', COLORS['accent']),
-            ('Text-to-Speech', 'tts', COLORS['success']),
-            ('Reconocimiento de Voz', 'reconocimiento_voz', COLORS['warning']),
+            ('Text-to-Speech', 'tts', COLORS['highlight']),
+            ('Reconocimiento de Voz', 'reconocimiento_voz', COLORS['secondary']),
+            ('Interacción con otros usuarios', 'interaccion_usuarios', COLORS['accent']),
             ('Lupa Digital', 'lupa', COLORS['primary']),
-            ('Volver al Menú Principal', 'home', COLORS['error'])
+            ('Volver al Menú Principal', 'home', COLORS['primary'])
         ]
 
         for text, screen, color in buttons:
@@ -108,9 +108,9 @@ class NoVidentesScreen(Screen):
         self.last_click_time = current_time
         self.last_clicked_button = button_text
 
-    def _update_rect(self, instance, value):
-        self.rect.pos = instance.pos
-        self.rect.size = instance.size
+    def _update_bg_rect(self, instance, value):
+        self.bg_rect.size = instance.size
+        self.bg_rect.pos = instance.pos
 
     def switch_screen(self, screen_name):
         self.manager.current = screen_name

@@ -8,6 +8,7 @@ from kivy.metrics import dp
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.clock import Clock
+from kivy.uix.image import Image
 from utils.styles import COLORS, TEXT_STYLES, BUTTON_STYLES, CARD_STYLES
 
 class HomeScreen(Screen):
@@ -18,23 +19,43 @@ class HomeScreen(Screen):
         self.setup_ui()
 
     def setup_ui(self):
-        # Configurar el fondo con gradiente
+        # Fondo con imagen
         with self.canvas.before:
-            Color(*COLORS['background'])
-            self.rect = Rectangle(size=Window.size, pos=self.pos)
-            self.bind(size=self._update_rect, pos=self._update_rect)
+            self.bg_rect = Rectangle(source='assets/imagenes/fondo1.jpg', size=Window.size, pos=self.pos)
+            self.bind(size=self._update_bg_rect, pos=self._update_bg_rect)
 
         # Layout principal con ScrollView
-        main_layout = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
+        main_layout = BoxLayout(orientation='vertical', padding=dp(25), spacing=dp(15))
+        
+        # Layout para el logo
+        logo_layout = BoxLayout(
+            orientation='vertical',
+            size_hint_y=None,
+            height=dp(120),
+            spacing=dp(10)
+        )
+        
+        # Logo de la aplicación
+        logo = Image(
+            source='assets/imagenes/IconoApp.jpg',
+            size_hint=(None, None),
+            size=(dp(100), dp(100)),
+            pos_hint={'center_x': 0.5}
+        )
+        logo_layout.add_widget(logo)
         
         # Título con estilo mejorado
         title = Label(
-            text='Bienvenido a la Aplicación',
+            text='Aprecia+',
             **TEXT_STYLES['title'],
             size_hint_y=None,
-            height=dp(60)
+            height=dp(40),
+            halign='center',
+            valign='middle'
         )
-        main_layout.add_widget(title)
+        logo_layout.add_widget(title)
+        
+        main_layout.add_widget(logo_layout)
 
         # Subtítulo con estilo mejorado
         subtitle = Label(
@@ -52,38 +73,44 @@ class HomeScreen(Screen):
 
         # Botones de navegación con estilo mejorado
         buttons = [
-            ('Modo No Videntes', 'no_videntes', COLORS['primary']),
-            ('Sección Padres', 'padres', COLORS['accent']),
-            ('Sugerencias', 'sugerencias', COLORS['success']),
-            ('Emergencia', 'emergencia', COLORS['error'])
+            ('Modo No Videntes', 'no_videntes', BUTTON_STYLES['primary']),
+            ('Sección Padres', 'padres', BUTTON_STYLES['accent']),
+            ('Sugerencias', 'sugerencias', BUTTON_STYLES['secondary']),
+            ('Emergencia', 'emergencia', BUTTON_STYLES['highlight'])
         ]
 
-        for text, screen, color in buttons:
+        for text, screen, style in buttons:
             # Crear tarjeta para cada botón
             card = BoxLayout(**CARD_STYLES['default'])
             
             # Agregar sombra y borde redondeado
             with card.canvas.before:
-                Color(0, 0, 0, 0.1)  # Color de sombra
+                # Sombra principal
+                Color(0, 0, 0, 0.2)  # Color de sombra más oscuro
                 RoundedRectangle(
-                    pos=(card.x + dp(2), card.y - dp(2)),
-                    size=(card.width - dp(4), card.height - dp(4)),
-                    radius=[dp(10), dp(10), dp(10), dp(10)]
+                    pos=(card.x + dp(3), card.y - dp(3)),
+                    size=(card.width - dp(6), card.height - dp(6)),
+                    radius=[dp(12), dp(12), dp(12), dp(12)]
                 )
-                Color(*color)
+                # Sombra secundaria
+                Color(0, 0, 0, 0.1)
+                RoundedRectangle(
+                    pos=(card.x + dp(1), card.y - dp(1)),
+                    size=(card.width - dp(2), card.height - dp(2)),
+                    radius=[dp(12), dp(12), dp(12), dp(12)]
+                )
+                # Fondo del botón
+                Color(*style['background_color'])
                 RoundedRectangle(
                     pos=card.pos,
                     size=card.size,
-                    radius=[dp(10), dp(10), dp(10), dp(10)]
+                    radius=[dp(12), dp(12), dp(12), dp(12)]
                 )
 
             # Botón dentro de la tarjeta
             btn = Button(
                 text=text,
-                size_hint_y=None,
-                height=dp(50),
-                background_normal='',
-                background_color=color
+                **style
             )
             btn.bind(on_press=lambda x, s=screen, t=text: self.handle_button_press(s, t))
             card.add_widget(btn)
@@ -106,9 +133,9 @@ class HomeScreen(Screen):
         self.last_click_time = current_time
         self.last_clicked_button = button_text
 
-    def _update_rect(self, instance, value):
-        self.rect.pos = instance.pos
-        self.rect.size = instance.size
+    def _update_bg_rect(self, instance, value):
+        self.bg_rect.size = instance.size
+        self.bg_rect.pos = instance.pos
 
     def switch_screen(self, screen_name):
         self.manager.current = screen_name

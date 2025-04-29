@@ -42,6 +42,12 @@ class LoginScreen(Screen):
         with layout.canvas.before:
             Color(1, 1, 1, 0.95)
             RoundedRectangle(pos=layout.pos, size=layout.size, radius=[dp(20)]*4)
+
+        # Fondo con imagen
+        with self.canvas.before:
+            self.bg_rect = Rectangle(source='assets/imagenes/fondo.jpg', size=Window.size, pos=self.pos)
+            self.bind(size=self._update_bg_rect, pos=self._update_bg_rect)
+
         self.add_widget(layout)
 
     def login(self, instance):
@@ -56,4 +62,8 @@ class LoginScreen(Screen):
 
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
-        self.rect.size = instance.size 
+        self.rect.size = instance.size
+
+    def _update_bg_rect(self, instance, value):
+        self.bg_rect.size = instance.size
+        self.bg_rect.pos = instance.pos 

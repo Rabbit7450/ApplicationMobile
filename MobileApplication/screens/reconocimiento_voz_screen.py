@@ -78,7 +78,7 @@ class ReconocimientoVozScreen(BaseScreen):
             size_hint_y=None,
             height=dp(50),
             background_normal='',
-            background_color=COLORS['primary_dark']
+            background_color=COLORS['primary']
         )
         back_button.bind(on_press=lambda x: self.handle_button_press(
             'back',

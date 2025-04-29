@@ -17,6 +17,7 @@ from screens.reconocimiento_voz_screen import ReconocimientoVozScreen
 from screens.lupa_screen import LupaScreen
 from screens.sugerencias_screen import SugerenciasScreen
 from screens.emergencia_screen import EmergenciaScreen
+from screens.interaccion_usuarios_screen import InteraccionUsuariosScreen
 
 # Configuración para dispositivos móviles
 Config.set('graphics', 'width', '360')
@@ -27,12 +28,16 @@ Config.set('graphics', 'orientation', 'portrait')
 class MyScreenManager(ScreenManager):
     pass
 
-class MobileApplication(App):
+class ApreciaPlus(App):
     def build(self):
-        # Configurar el tamaño de la ventana
-        Window.size = (400, 700)
-        
-        # Crear el administrador de pantallas
+        # Configurar el tema de la aplicación
+        self.title = 'Aprecia+'
+        # Configurar el tamaño de la ventana para dispositivos móviles
+        Window.size = (360, 640)  # Ancho x Alto
+        return self.setup_screens()
+
+    def setup_screens(self):
+        # Crear el gestor de pantallas
         sm = ScreenManager()
         
         # Agregar las pantallas
@@ -51,8 +56,9 @@ class MobileApplication(App):
         sm.add_widget(LupaScreen(name='lupa'))
         sm.add_widget(SugerenciasScreen(name='sugerencias'))
         sm.add_widget(EmergenciaScreen(name='emergencia'))
+        sm.add_widget(InteraccionUsuariosScreen(name='interaccion_usuarios'))
         sm.current = 'login'
         return sm
 
 if __name__ == '__main__':
-    MobileApplication().run()
+    ApreciaPlus().run()

@@ -18,11 +18,10 @@ class PadresScreen(Screen):
         self.setup_ui()
 
     def setup_ui(self):
-        # Configurar el fondo con gradiente
+        # Fondo con imagen
         with self.canvas.before:
-            Color(*COLORS['background'])
-            self.rect = Rectangle(size=Window.size, pos=self.pos)
-            self.bind(size=self._update_rect, pos=self._update_rect)
+            self.bg_rect = Rectangle(source='assets/imagenes/fondo1.jpg', size=Window.size, pos=self.pos)
+            self.bind(size=self._update_bg_rect, pos=self._update_bg_rect)
 
         # Layout principal con ScrollView
         main_layout = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
@@ -57,36 +56,36 @@ class PadresScreen(Screen):
             ('Configuración de Accesibilidad', 'config_accesibilidad', COLORS['accent']),
             
             # Recursos Educativos
-            ('Recursos Educativos', 'recursos_educativos', COLORS['success']),
-            ('Material Didáctico', 'material_didactico', COLORS['warning']),
+            ('Recursos Educativos', 'recursos_educativos', COLORS['highlight']),
+            ('Material Didáctico', 'material_didactico', COLORS['secondary']),
             ('Actividades Adaptadas', 'actividades_adaptadas', COLORS['primary']),
             
             # Apoyo y Guía
             ('Guía de Apoyo', 'guia_apoyo', COLORS['accent']),
-            ('Preguntas Frecuentes', 'preguntas_frecuentes', COLORS['success']),
-            ('Consejos Diarios', 'consejos_diarios', COLORS['warning']),
+            ('Preguntas Frecuentes', 'preguntas_frecuentes', COLORS['highlight']),
+            ('Consejos Diarios', 'consejos_diarios', COLORS['secondary']),
             
             # Comunidad y Redes
             ('Comunidad de Padres', 'comunidad_padres', COLORS['primary']),
             ('Grupos de Apoyo', 'grupos_apoyo', COLORS['accent']),
-            ('Compartir Experiencias', 'compartir_experiencias', COLORS['success']),
+            ('Compartir Experiencias', 'compartir_experiencias', COLORS['highlight']),
             
             # Calendario y Eventos
-            ('Calendario de Actividades', 'calendario', COLORS['warning']),
+            ('Calendario de Actividades', 'calendario', COLORS['secondary']),
             ('Eventos Próximos', 'eventos_proximos', COLORS['primary']),
             ('Recordatorios', 'recordatorios', COLORS['accent']),
             
             # Profesionales y Especialistas
-            ('Contacto con Especialistas', 'especialistas', COLORS['success']),
-            ('Terapeutas', 'terapeutas', COLORS['warning']),
+            ('Contacto con Especialistas', 'especialistas', COLORS['highlight']),
+            ('Terapeutas', 'terapeutas', COLORS['secondary']),
             ('Psicólogos', 'psicologos', COLORS['primary']),
             
             # Notificaciones y Alertas
             ('Notificaciones', 'notificaciones', COLORS['accent']),
-            ('Alertas Importantes', 'alertas', COLORS['success']),
+            ('Alertas Importantes', 'alertas', COLORS['highlight']),
             
             # Volver al Menú Principal
-            ('Volver al Menú Principal', 'home', COLORS['error'])
+            ('Volver al Menú Principal', 'home', COLORS['primary'])
         ]
 
         for text, screen, color in buttons:
@@ -137,9 +136,9 @@ class PadresScreen(Screen):
         self.last_click_time = current_time
         self.last_clicked_button = button_text
 
-    def _update_rect(self, instance, value):
-        self.rect.pos = instance.pos
-        self.rect.size = instance.size
+    def _update_bg_rect(self, instance, value):
+        self.bg_rect.size = instance.size
+        self.bg_rect.pos = instance.pos
 
     def switch_screen(self, screen_name):
         self.manager.current = screen_name
