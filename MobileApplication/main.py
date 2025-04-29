@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from kivy.config import Config
+from screens.login_screen import LoginScreen
 from screens.home_screen import HomeScreen
 from screens.no_videntes_screen import NoVidentesScreen
 from screens.padres_screen import PadresScreen
@@ -35,6 +36,7 @@ class MobileApplication(App):
         sm = ScreenManager()
         
         # Agregar las pantallas
+        sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(HomeScreen(name='home'))
         sm.add_widget(NoVidentesScreen(name='no_videntes'))
         sm.add_widget(PadresScreen(name='padres'))
@@ -49,7 +51,7 @@ class MobileApplication(App):
         sm.add_widget(LupaScreen(name='lupa'))
         sm.add_widget(SugerenciasScreen(name='sugerencias'))
         sm.add_widget(EmergenciaScreen(name='emergencia'))
-        
+        sm.current = 'login'
         return sm
 
 if __name__ == '__main__':
