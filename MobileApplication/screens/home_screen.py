@@ -52,15 +52,9 @@ class HomeScreen(Screen):
 
         # Botones de navegación con estilo mejorado
         buttons = [
-            ('No Videntes', 'no_videntes', COLORS['primary']),
-            ('Padres', 'padres', COLORS['accent']),
-            ('Audiolibros', 'audiolibros', COLORS['success']),
-            ('Juegos', 'juegos', COLORS['warning']),
-            ('Sugerencias', 'sugerencias', COLORS['primary']),
-            ('TTS', 'tts', COLORS['accent']),
-            ('Reconocimiento de Voz', 'reconocimiento_voz', COLORS['success']),
-            ('Modo Contraste', 'modo_contraste', COLORS['warning']),
-            ('Lupa', 'lupa', COLORS['primary']),
+            ('Modo No Videntes', 'no_videntes', COLORS['primary']),
+            ('Sección Padres', 'padres', COLORS['accent']),
+            ('Sugerencias', 'sugerencias', COLORS['success']),
             ('Emergencia', 'emergencia', COLORS['error'])
         ]
 
