@@ -1,0 +1,6 @@
+kivy==2.2.1
+pyttsx3==2.90
+SpeechRecognition==3.10.0
+vosk==0.3.45
+pyaudio==0.2.13
+python-chess==1.9.4 
