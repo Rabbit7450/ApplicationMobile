@@ -1,0 +1,4 @@
+title=Aplicación Accesible
+author=Tu Nombre
+orientation=portrait
+fullscreen=0 

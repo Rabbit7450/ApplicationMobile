@@ -35,7 +35,7 @@ version = 0.1
 # version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
-requirements = python3,kivy==2.2.1,pillow
+requirements = python3,kivy==2.2.1,pillow,android,plyer
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -296,7 +296,7 @@ warn_on_root = 1
 #    -----------------------------------------------------------------------------
 #    List as sections
 #
-#    You can define all the "list" as [section:key].
+#    You can define all the "list" as sections.
 #    Each line will be considered as a option to the list.
 #    Let's take [app] / source.exclude_patterns.
 #    Instead of doing:
@@ -328,4 +328,7 @@ warn_on_root = 1
 #
 #    Then, invoke the command line with the "demo" profile:
 #
-#buildozer --profile demo android debug 
+#buildozer --profile demo android debug
+
+# (list) Permissions
+android.permissions = RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET, MODIFY_AUDIO_SETTINGS 
